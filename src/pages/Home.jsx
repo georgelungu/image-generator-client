@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { Loader, Card, FormField } from "../components";
 
-// left at 04:11:10
-
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) 
   {
@@ -25,6 +23,8 @@ const Home = () => {
   const [searchedResults, setSearchedResults] = useState(null)
   const [searchTimeout, setSearchTimeout] = useState(null)
 
+
+  // fetch to GET all posts
   useEffect(() => 
   {
     const fetchPosts = async () =>
@@ -90,7 +90,14 @@ const Home = () => {
       </div>
 
       <div className="mt-16">
-        <FormField />
+        <FormField 
+          labelName="Search posts"
+          type="text"
+          name="text"
+          placeholder="Search posts"
+          value={searchText}
+          handleChange={handleSearchChange}
+        />
       </div>
 
       <div className="mt-10">
@@ -103,13 +110,13 @@ const Home = () => {
             {searchText && (
               <h2 className="font-medium text-[#666e75] text-xl mb-3">
                 Showing results for
-                <span className="text-[#222328">{searchText}</span>
+                <span className="text-[#222328"> {searchText}</span>
               </h2>
             )}
             <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
               {searchText ? (
                 <RenderCards 
-                  data={[]} 
+                  data={searchedResults} 
                   title="No search results found" 
                 />
               ) : (
